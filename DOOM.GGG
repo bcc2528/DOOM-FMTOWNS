@@ -1,0 +1,12 @@
+
+～～～～～～～～～～～～～FM TOWNS版「DOOM」 V1.1 L30～～～～～～～～～～～～～
+作品名　：DOOM for FM TOWNS V1.1 L30
+作　者　：BCC
+日　付　：2021年11月4日
+種　別　：ゲーム
+動作環境：CPU 486、メモリ8MB(空き6MB以上、+4MBまでキャッシュ用に使用)、HDD必須
+　　　　　TownsOS V2.1 L40以上(L50もしくはL51推奨)
+使用言語：High C コンパイラ V1.7 L12 & NASM v0.98.35+towns11
+使用方法：TownsシステムソフトウェアV2.1 L40以上で「DOOM.EXP」をダブルクリックしてください。同フォルダ上にあるDOOM1.WAD、DOOMU.WAD、DOOM2.WADが読み込まれますが、ゲーム開始前にWADファイル選択機能等は用意していないので、The Ultimate DOOMとDOOM2をそれぞれ別に遊びたい場合は、WADファイル毎にフォルダを分けてその中にDOOM.EXPを入れて実行することをお勧めします。
+
+詳しい説明はDOOM.DOCにて
