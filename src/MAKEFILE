@@ -1,0 +1,132 @@
+cc = run386 \hc386\bin\hcd386p
+cflags = -off Floating_point
+link = run386 \hc386\bin\tlinkp
+
+doom.exp : am_map.obj d_items.obj d_main.obj d_net.obj doomdef.obj doomstat.obj dstrings.obj f_finale.obj f_wipe.obj g_game.obj hu_lib.obj hu_stuff.obj i_main.obj i_net.obj i_sound.obj i_system.obj i_video.obj info.obj m_argv.obj m_bbox.obj m_cheat.obj m_fixed.obj m_menu.obj m_misc.obj m_random.obj m_swap.obj p_ceilng.obj p_doors.obj p_enemy.obj p_floor.obj p_inter.obj p_lights.obj p_map.obj p_maputl.obj p_mobj.obj p_plats.obj p_pspr.obj p_saveg.obj p_setup.obj p_sight.obj p_spec.obj p_switch.obj p_telept.obj p_tick.obj p_user.obj r_bsp.obj r_data.obj r_draw.obj r_main.obj r_plane.obj r_segs.obj r_sky.obj r_things.obj s_sound.obj sounds.obj st_lib.obj st_stuff.obj tables.obj v_video.obj w_wad.obj wi_stuff.obj z_zone.obj
+	$(link) @doom.lnk
+
+am_map.obj : am_map.c
+	$(cc) $*.c $(cflags)
+d_items.obj : d_items.c
+	$(cc) $*.c $(cflags)
+d_main.obj : d_main.c
+	$(cc) $*.c $(cflags)
+d_net.obj : d_net.c
+	$(cc) $*.c $(cflags)
+doomdef.obj : doomdef.c
+	$(cc) $*.c $(cflags)
+doomstat.obj : doomstat.c
+	$(cc) $*.c $(cflags)
+dstrings.obj : dstrings.c
+	$(cc) $*.c $(cflags)
+f_finale.obj : f_finale.c
+	$(cc) $*.c $(cflags)
+f_wipe.obj : f_wipe.c
+	$(cc) $*.c $(cflags)
+g_game.obj : g_game.c
+	$(cc) $*.c $(cflags)
+hu_lib.obj : hu_lib.c
+	$(cc) $*.c $(cflags)
+hu_stuff.obj : hu_stuff.c
+	$(cc) $*.c $(cflags)
+i_main.obj : i_main.c
+	$(cc) $*.c $(cflags)
+i_net.obj : i_net.c
+	$(cc) $*.c $(cflags)
+i_sound.obj : i_sound.c
+	$(cc) $*.c $(cflags)
+i_system.obj : i_system.c
+	$(cc) $*.c $(cflags)
+i_video.obj : i_video.c
+	$(cc) $*.c $(cflags)
+info.obj : info.c
+	$(cc) $*.c $(cflags)
+m_argv.obj : m_argv.c
+	$(cc) $*.c $(cflags)
+m_bbox.obj : m_bbox.c
+	$(cc) $*.c $(cflags)
+m_cheat.obj : m_cheat.c
+	$(cc) $*.c $(cflags)
+m_fixed.obj : m_fixed.c
+	$(cc) $*.c $(cflags)
+m_menu.obj : m_menu.c
+	$(cc) $*.c $(cflags)
+m_misc.obj : m_misc.c
+	$(cc) $*.c $(cflags)
+m_random.obj : m_random.c
+	$(cc) $*.c $(cflags)
+m_swap.obj : m_swap.c
+	$(cc) $*.c $(cflags)
+p_ceilng.obj : p_ceilng.c
+	$(cc) $*.c $(cflags)
+p_doors.obj : p_doors.c
+	$(cc) $*.c $(cflags)
+p_enemy.obj : p_enemy.c
+	$(cc) $*.c $(cflags)
+p_floor.obj : p_floor.c
+	$(cc) $*.c $(cflags)
+p_inter.obj : p_inter.c
+	$(cc) $*.c $(cflags)
+p_lights.obj : p_lights.c
+	$(cc) $*.c $(cflags)
+p_map.obj : p_map.c
+	$(cc) $*.c $(cflags)
+p_maputl.obj : p_maputl.c
+	$(cc) $*.c $(cflags)
+p_mobj.obj : p_mobj.c
+	$(cc) $*.c $(cflags)
+p_plats.obj : p_plats.c
+	$(cc) $*.c $(cflags)
+p_pspr.obj : p_pspr.c
+	$(cc) $*.c $(cflags)
+p_saveg.obj : p_saveg.c
+	$(cc) $*.c $(cflags)
+p_setup.obj : p_setup.c
+	$(cc) $*.c $(cflags)
+p_sight.obj : p_sight.c
+	$(cc) $*.c $(cflags)
+p_spec.obj : p_spec.c
+	$(cc) $*.c $(cflags)
+p_switch.obj : p_switch.c
+	$(cc) $*.c $(cflags)
+p_telept.obj : p_telept.c
+	$(cc) $*.c $(cflags)
+p_tick.obj : p_tick.c
+	$(cc) $*.c $(cflags)
+p_user.obj : p_user.c
+	$(cc) $*.c $(cflags)
+r_bsp.obj : r_bsp.c
+	$(cc) $*.c $(cflags)
+r_data.obj : r_data.c
+	$(cc) $*.c $(cflags)
+r_draw.obj : r_draw.c
+	$(cc) $*.c $(cflags)
+r_main.obj : r_main.c
+	$(cc) $*.c $(cflags)
+r_plane.obj : r_plane.c
+	$(cc) $*.c $(cflags)
+r_segs.obj : r_segs.c
+	$(cc) $*.c $(cflags)
+r_sky.obj : r_sky.c
+	$(cc) $*.c $(cflags)
+r_things.obj : r_things.c
+	$(cc) $*.c $(cflags)
+s_sound.obj : s_sound.c
+	$(cc) $*.c $(cflags)
+sounds.obj : sounds.c
+	$(cc) $*.c $(cflags)
+st_lib.obj : st_lib.c
+	$(cc) $*.c $(cflags)
+st_stuff.obj : st_stuff.c
+	$(cc) $*.c $(cflags)
+tables.obj : tables.c
+	$(cc) $*.c $(cflags)
+v_video.obj : v_video.c
+	$(cc) $*.c $(cflags)
+w_wad.obj : w_wad.c
+	$(cc) $*.c $(cflags)
+wi_stuff.obj : wi_stuff.c
+	$(cc) $*.c $(cflags)
+z_zone.obj : z_zone..c
+	$(cc) $*.c $(cflags)
+
