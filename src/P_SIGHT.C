@@ -95,32 +95,6 @@ P_DivlineSide
 
 
 //
-// P_InterceptVector2
-// Returns the fractional intercept point
-// along the first divline.
-// This is only called by the addthings and addlines traversers.
-//
-fixed_t
-P_InterceptVector2
-( divline_t*	v2,
-  divline_t*	v1 )
-{
-    fixed_t	num;
-    fixed_t	den;
-	
-    den = FixedMul (v1->dy>>8,v2->dx) - FixedMul(v1->dx>>8,v2->dy);
-
-    if (den == 0)
-	return 0;
-    //	I_Error ("P_InterceptVector: parallel");
-    
-    num = FixedMul ( (v1->x - v2->x)>>8 ,v1->dy) + 
-	FixedMul ( (v2->y - v1->y)>>8 , v1->dx);
-
-    return FixedDiv (num , den);
-}
-
-//
 // P_CrossSubsector
 // Returns true
 //  if strace crosses the given subsector successfully.
@@ -140,6 +114,9 @@ boolean P_CrossSubsector (int num)
     vertex_t*		v2;
     fixed_t		frac;
     fixed_t		slope;
+
+    fixed_t		num_v;
+    fixed_t		den;
 	
 #ifdef RANGECHECK
     if (num>=numsubsectors)
@@ -210,8 +187,24 @@ boolean P_CrossSubsector (int num)
 	// quick test for totally closed doors
 	if (openbottom >= opentop)	
 	    return false;		// stop
-	
-	frac = P_InterceptVector2 (&strace, &divl);
+
+
+	// Include P_InterceptVector2
+	// Returns the fractional intercept point
+	// along the first divline.
+	// This is only called by the addthings and addlines traversers.
+	den = FixedMul (divl.dy>>8,strace.dx) - FixedMul(divl.dx>>8,strace.dy);
+
+	if (den == 0)
+	{
+		frac = 0;
+	}
+	else
+	{
+    		num_v = FixedMul ( (divl.x - strace.x)>>8 ,divl.dy) + 
+		FixedMul ( (strace.y - divl.y)>>8 , divl.dx);
+		frac = FixedDiv (num_v , den);
+	}
 		
 	if (front->floorheight != back->floorheight)
 	{
@@ -319,11 +312,11 @@ P_CheckSight
     bottomslope = (t2->z) - sightzstart;
 	
     strace.x = t1->x;
-    strace.y = t1->y;
     t2x = t2->x;
+    strace.dx = t2x - strace.x;
+    strace.y = t1->y;
     t2y = t2->y;
-    strace.dx = t2->x - t1->x;
-    strace.dy = t2->y - t1->y;
+    strace.dy = t2y - strace.y;
 
     // the head node is the last node output
     return P_CrossBSPNode (firstnode);	

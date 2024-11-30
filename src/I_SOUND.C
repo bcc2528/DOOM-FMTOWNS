@@ -125,7 +125,7 @@ int		channelids[NUM_CHANNELS];
 int		steptable[256];
 
 // Volume lookups.
-int		vol_lookup[128*256];
+int		*vol_lookup;
 
 // Hardware left and right channel volume lookup.
 int*		channelleftvol_lookup[NUM_CHANNELS];
@@ -312,6 +312,7 @@ addsfx
     // Per left/right channel.
     //  x^2 seperation,
     //  adjust volume properly.
+    volume <<= 3; // * 8
     leftvol =
 	volume - ((volume*seperation*seperation) >> 16); ///(256*256);
     seperation = seperation - 257;
@@ -377,13 +378,15 @@ void I_SetChannels()
   // Generates volume lookup tables
   //  which also turn the unsigned samples
   //  into signed samples.
+  vol_lookup = (int *)malloc(128 * 256 *sizeof(int));
   for (i=0 ; i<128 ; i++)
-    {
+  {
     for (j=0 ; j<256 ; j++)
-      {
+    {
       vol_lookup[i*256+j] = (i*(j-128)*256)/127;
-      }
-}	}
+    }
+  }
+}
 
  
 void I_SetSfxVolume(int volume)
@@ -601,21 +604,10 @@ void I_UpdateSound( void )
 	// if (dl > 127) *leftout = 127;
 	// else if (dl < -128) *leftout = -128;
 	// else *leftout = dl;
-
-	if (dl > 0x7fff)
-	    *leftout = 0x7fff;
-	else if (dl < -0x8000)
-	    *leftout = -0x8000;
-	else
-	    *leftout = dl;
+	*leftout = _min(32767, _max(dl, -32767));
 
 	// Same for right hardware channel.
-	if (dr > 0x7fff)
-	    *rightout = 0x7fff;
-	else if (dr < -0x8000)
-	    *rightout = -0x8000;
-	else
-	    *rightout = dr;
+	*rightout = _min(32767, _max(dr, -32767));
 
 	// Increment current pointers in mixbuffer.
 	leftout += STEREO;
@@ -702,6 +694,7 @@ void I_ShutdownSound(void)
 
   // Done.
 
+  free(vol_lookup);
 	
 	free(pring);
     WAV_playStop();

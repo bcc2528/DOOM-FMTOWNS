@@ -223,12 +223,9 @@ void R_RenderSegLoop (void)
 	floorclip_temp = &floorclip[rw_x];
 
 	// mark floor / ceiling areas
-	yl = (topfrac+HEIGHTUNIT-1)>>HEIGHTBITS;
-
 	// no space above wall?
-	if (yl < *ceilingclip_temp + 1)
-	    yl = *ceilingclip_temp + 1;
-	
+	yl = _max((topfrac+HEIGHTUNIT-1)>>HEIGHTBITS, *ceilingclip_temp + 1 );
+
 	if (markceiling)
 	{
 	    top = *ceilingclip_temp + 1;

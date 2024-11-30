@@ -43,8 +43,6 @@
 
 char work[EgbWorkSize] ;
 
-int reg_ds;
-
 
 //
 // I_InitforConsole
@@ -67,33 +65,18 @@ void I_InitforConsole()
 //
 void I_SetPalette(byte *palette)
 {
-    int i;
-    int a;
-    char para[2064];
-    char r, g, b;
+	if(novideo)
+	{
+		return;
+	}
 
-    if(novideo)
-    {
-    	return;
-    }
-
-
-    DWORD(para + 0) = 256;
-    for(i = 0 ; i < 256; i++)
-    {
-    	a = (i * 8) + 4;
-    	r = gammatable[usegamma][*palette++];
-    	g = gammatable[usegamma][*palette++];
-    	b = gammatable[usegamma][*palette++];
-    	DWORD(para + a) = i;
-    	BYTE(para  + a + 4) = b;
-    	BYTE(para  + a + 5) = r;
-    	BYTE(para  + a + 6) = g;
-    	BYTE(para  + a + 7) = 0;
-    }
-		
-    EGB_palette (work, 0, para);
-
+	for (int i=0;i<256;i++)
+	{
+		_outb( 0xfd90, i );
+		_outb( 0xfd94, gammatable[usegamma][*palette++] );
+		_outb( 0xfd96, gammatable[usegamma][*palette++] );
+		_outb( 0xfd92, gammatable[usegamma][*palette++] );
+	}
 }
 
 //
@@ -101,15 +84,14 @@ void I_SetPalette(byte *palette)
 //
 void I_VSync()
 {
-	char para[16];
+
 
 	if(novideo)
 	{
 		return;
 	}
 
-	DWORD(para) = 0;
-	EGB_palette (work, 1, para);
+	while(0==(_inb(0xfda0)&1));
 }
 
 //
@@ -179,7 +161,7 @@ void I_FinishUpdate (void)
 
 	//Write in screens[0] to VRAM
     DWORD( para+0  ) = screens[0];
-    WORD( para+4  ) = reg_ds;
+    WORD( para+4  ) = 0x14;
     WORD( para+6  ) = 0;
     WORD( para+8  ) = 19;
     WORD( para+10 ) = SCREENWIDTH - 1;
@@ -188,7 +170,7 @@ void I_FinishUpdate (void)
 
 
     //DWORD( para+0  ) = screens[0];
-    //WORD( para+4  ) = reg_ds;
+    //WORD( para+4  ) = getds();
     //WORD( para+6  ) = x;
     //WORD( para+8  ) = 19;
     //WORD( para+10 ) = x + SCREENWIDTH - 1;
@@ -236,8 +218,6 @@ void I_InitGraphics(void)
     EGB_clearScreen( work );
 
     I_SetPalette(W_CacheLumpName("PLAYPAL", PU_CACHE));
-
-    reg_ds = getds();
 }
 
 //
