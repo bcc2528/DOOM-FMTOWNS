@@ -243,10 +243,10 @@ void HUlib_drawSText(hu_stext_t* s)
 	if (idx < 0)
 	    idx += s->h; // handle queue of lines
 	
-	l = &s->l[idx];
+	//l = &s->l[idx];
 
 	// need a decision made here on whether to skip the draw
-	HUlib_drawTextLine(l, false); // no cursor, please
+	HUlib_drawTextLine(&s->l[idx], false); // no cursor, please
     }
 
 }
@@ -336,11 +336,11 @@ HUlib_keyInIText
 void HUlib_drawIText(hu_itext_t* it)
 {
 
-    hu_textline_t *l = &it->l;
+    //hu_textline_t *l = &it->l;
 
     if (!*it->on)
 	return;
-    HUlib_drawTextLine(l, true); // draw the line w/ cursor
+    HUlib_drawTextLine(&it->l, true); // draw the line w/ cursor
 
 }
 
@@ -352,3 +352,4 @@ void HUlib_eraseIText(hu_itext_t* it)
     it->laston = *it->on;
 }
 
+

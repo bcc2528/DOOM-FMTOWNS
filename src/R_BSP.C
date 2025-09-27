@@ -95,8 +95,6 @@ void R_ClipSolidWallSegment(int first,
             // Post is entirely visible (above start),
             //  so insert a new clippost.
             R_StoreWallRange(first, last);
-            next = newend;
-            newend++;
 
             // 1/11/98 killough: performance tuning using fast memmove
             memmove(start + 1, start, (++newend - start) * sizeof(*start));

@@ -563,7 +563,7 @@ void I_UpdateSound( void )
     // Mix sounds into the mixing buffer.
     // Loop over STEREO*SAMPLECOUNT,
     //  that is 512 values for two channels.
-    while (leftout != leftend)
+    do
     {
 	// Reset left/right value. 
 	dl = 0;
@@ -572,7 +572,8 @@ void I_UpdateSound( void )
 	// Love thy L2 chache - made this a loop.
 	// Now more channels could be set at compile time
 	//  as well. Thus loop those  channels.
-	for ( chan = 0; chan < NUM_CHANNELS; chan++ )
+	chan = 0;
+	do
 	{
 	    // Check channel, if active.
 	    if (channels[ chan ])
@@ -597,7 +598,8 @@ void I_UpdateSound( void )
 		if (channels[ chan ] >= channelsend[ chan ])
 		    channels[ chan ] = 0;
 	    }
-	}
+	    chan++;
+	} while(chan < NUM_CHANNELS);
 	
 	// Clamp to range. Left hardware channel.
 	// Has been char instead of short.
@@ -612,7 +614,7 @@ void I_UpdateSound( void )
 	// Increment current pointers in mixbuffer.
 	leftout += STEREO;
 	rightout += STEREO;
-    }
+    } while (leftout != leftend);
 
 #ifdef SNDINTR
     // Debug check.

@@ -70,13 +70,15 @@ void I_SetPalette(byte *palette)
 		return;
 	}
 
-	for (int i=0;i<256;i++)
+	int i = 0;
+	do
 	{
 		_outb( 0xfd90, i );
 		_outb( 0xfd94, gammatable[usegamma][*palette++] );
 		_outb( 0xfd96, gammatable[usegamma][*palette++] );
 		_outb( 0xfd92, gammatable[usegamma][*palette++] );
-	}
+		i++;
+	} while(i < 256);
 }
 
 //
